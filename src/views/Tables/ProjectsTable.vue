@@ -22,10 +22,10 @@
                   tbody-classes="list"
                   :data="tableData">
         <template slot="columns">
-          <th>Project</th>
-          <th>Budget</th>
+          <th>Title</th>
+          <th>Location</th>
           <th>Status</th>
-          <th>Users</th>
+          <th>Volunteers</th>
           <th>Completion</th>
           <th></th>
         </template>
