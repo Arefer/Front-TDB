@@ -8,7 +8,7 @@
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col">
-                    <div class="card shadow border-0 col-md">
+                    <div class="card shadow border-0 col-md" style="margin: 10px; padding: 10px">
                         <base-input id="nameInput" v-model="name" :valid="state" :error="invalidFeedback" class="col-md" label="Nombre" required  ></base-input>
                         <base-input class="col-md" v-model="description" label="Descripción"  ></base-input>
                         <base-input class="col-md" v-model="location" label="Ubicación"  ></base-input>

@@ -4,7 +4,7 @@
 
       <div class="col">
         <slot>
-          <h5 class="card-title text-uppercase text-muted mb-0" v-if="title">{{title}}</h5>
+          <h5 class="card-title text-uppercase text-muted mb-0" v-if="title"><router-link :to="{name: component, query: queryParams}">{{title}}</router-link></h5>
           <span class="h2 font-weight-bold mb-0" v-if="subTitle">{{subTitle}}</span>
         </slot>
       </div>
@@ -42,7 +42,12 @@
       icon: String,
       title: String,
       subTitle: String,
-      iconClasses: [String, Array]
+      iconClasses: [String, Array],
+      component: {
+        type: String,
+        description: 'where to go when clicking the card title'
+      },
+      queryParams: {}
     }
   };
 </script>

@@ -49,7 +49,12 @@ export default new Router({
           path: 'create-emergency',
           name: 'create-emergency',
           component: () => import('./views/CreateEmergency.vue')
-        }
+        },
+        {
+          path: 'emergency-details',
+          name: 'emergency-details',
+          component: () => import('./views/EmergencyDetail.vue')
+        },
       ]
     },
     {
