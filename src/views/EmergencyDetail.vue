@@ -17,8 +17,6 @@
 
         <div class="container-fluid mt--7">
             <div class="row">
-
-
                 <div class="col-12">
                     <card shadow type="secondary">
                         <div slot="header" class="bg-white border-0">
@@ -87,9 +85,24 @@
 
                                 </div>
                                 <hr class="my-4" />
-                                <!-- Address -->
                             </form>
                         </template>
+                    </card>
+                    <card shadow type="secondary" style="margin-top: 20px">
+                        <div slot="header" class="bg-white border-0">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h3 class="mb-0">Tareas asociadas</h3>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <router-link to="/"> <b-button> Nueva tarea <i class="ni ni-fat-add"></i></b-button> </router-link>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <b-table striped hover :items="$route.query.emergency.tasks"></b-table>
+                            <h6 v-if="$route.query.emergency.tasks.length === 0" class="heading-small text-muted mb-4">Aún no hay tareas asociadas...</h6>
+                        </div>
                     </card>
                 </div>
             </div>
@@ -97,15 +110,20 @@
     </div>
 </template>
 <script>
+  import {rest_ip} from "../router";
+
   export default {
     name: 'emergency-details',
     data() {
       return {
-        model: ''
+          //model: '',
       }
     },
       created(){
-        this.model = this.$route.query.emergency
+        this.model = this.$route.query.emergency;
+        //this.taskss = this.model.tasks;
+        //console.log(rest_ip+'/'+this.model.id+'/'+'tasks');
+        //this.axios.get(rest_ip+'/'+this.model.id+'/'+'tasks').then((r) => this.tasks = r.data);
       }
   };
 </script>
