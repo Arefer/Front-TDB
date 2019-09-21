@@ -55,6 +55,11 @@ export default new Router({
           name: 'emergency-details',
           component: () => import('./views/EmergencyDetail.vue')
         },
+        {
+          path: 'create-task',
+          name: 'create-task',
+          component: () => import('./views/CreateTask.vue')
+        }
       ]
     },
     {
