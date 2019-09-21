@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import DashboardLayout from '@/layout/DashboardLayout'
 import AuthLayout from '@/layout/AuthLayout'
 Vue.use(Router)
-
+export const rest_ip = "http://localhost:9090/";
 export default new Router({
   linkExactActiveClass: 'active',
   routes: [
@@ -39,6 +39,11 @@ export default new Router({
           path: '/tables',
           name: 'tables',
           component: () => import(/* webpackChunkName: "demo" */ './views/Tables.vue')
+        },
+        {
+          path: 'create-emergency',
+          name: 'create-emergency',
+          component: () => import('./views/CreateEmergency.vue')
         }
       ]
     },

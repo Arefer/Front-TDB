@@ -15,15 +15,20 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import './registerServiceWorker'
 import ArgonDashboard from './plugins/argon-dashboard'
-
-Vue.config.productionTip = false
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 Vue.use(ArgonDashboard)
+Vue.use(BootstrapVue)
+Vue.use(VueAxios, axios)
+Vue.config.productionTip = false
+
 new Vue({
   router,
   render: h => h(App)
