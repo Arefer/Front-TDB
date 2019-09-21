@@ -1,23 +1,32 @@
 <template>
     <div style="padding-bottom: 50px">
-        <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8"></base-header>
-        <div class="container">
-            <base-input id="nameInput" v-model="name" :valid="state" :error="invalidFeedback" class="col-md" label="Nombre" required  ></base-input>
-            <base-input class="col-md" v-model="description" label="Descripción"  ></base-input>
-            <base-input class="col-md" v-model="location" label="Ubicación"  ></base-input>
-            <base-input class="col-md" v-model="type" label="Tipo" ></base-input>
-
-
-            <div class="col-md">
-                <b-alert v-model="showDismissibleAlert" variant="success" dismissible>
-                    Emergencia registrada con éxito.
-                </b-alert>
+        <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8" style="min-height: 200px">
+            <div class="row">
+                <h1 class="display-2 text-white col-md" style="padding-bottom: 20px">Formulario de creación de una emergencia</h1>
             </div>
+        </base-header>
+        <div class="container-fluid mt--7">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow border-0 col-md">
+                        <base-input id="nameInput" v-model="name" :valid="state" :error="invalidFeedback" class="col-md" label="Nombre" required  ></base-input>
+                        <base-input class="col-md" v-model="description" label="Descripción"  ></base-input>
+                        <base-input class="col-md" v-model="location" label="Ubicación"  ></base-input>
+                        <base-input class="col-md" v-model="type" label="Tipo" ></base-input>
 
-            <div class="col-md">
-                <b-button @click="post()" class="float-md-right">Guardar</b-button>
+
+                        <div class="col-md">
+                            <b-alert v-model="showDismissibleAlert" variant="success" dismissible>
+                                Emergencia registrada con éxito.
+                            </b-alert>
+                        </div>
+
+                        <div class="col-md">
+                            <b-button @click="post()" class="float-md-right" style="margin-bottom: 10px">Guardar</b-button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </template>

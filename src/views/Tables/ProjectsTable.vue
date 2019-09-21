@@ -123,10 +123,9 @@
       }
     },
     mounted(){
-      let vue = this;
       axios.get('http://http://localhost:9090/emergencies')
       .then(function(response){
-        vue.emergencies = response.data;
+        this.emergencies = response.data;
       })
     }
   }

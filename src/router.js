@@ -21,6 +21,11 @@ export default new Router({
           component: () => import(/* webpackChunkName: "demo" */ './views/Dashboard.vue')
         },
         {
+          path: '/e-dashboard',
+          name: 'e-dashboard',
+          component: () => import('./views/EmergenciesDashboard.vue')
+        },
+        {
           path: '/icons',
           name: 'icons',
           component: () => import(/* webpackChunkName: "demo" */ './views/Icons.vue')
