@@ -50,10 +50,7 @@ export default {
         .then(response => {
           this.emergencies = response.data;
         })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+    },
   }
 };
 </script>
