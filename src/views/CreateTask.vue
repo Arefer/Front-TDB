@@ -51,14 +51,17 @@ export default {
     methods: {
           post(){
               if(this.name.length >= 1){
-                  alert(this.name)
-                  this.axios.post(rest_ip+"tasks/post", {
+                  alert(this.name);
+                  this.axios.post(rest_ip+"tasks/post/"+this.$route.query.emergency.id, {
                       title: this.name,
                       description: this.description,
                       priority: this.priority,
                       status: this.status,
-                      emergency: this.$route.query.emergency
-                  }).then((r) => {this.showDismissibleAlert = true; this.name=r.data.title}).catch(e => alert(e))
+                  }).then((r) => {
+                      this.showDismissibleAlert = true; this.name=r.data.title;
+                      this.$router.push({name:'emergency-details', query: {emergency: this.$route.query.emergency}});
+                  }
+                  ).catch()
               }
           }
         },

@@ -95,12 +95,12 @@
                                     <h3 class="mb-0">Tareas asociadas</h3>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <router-link to="/"> <b-button> Nueva tarea <i class="ni ni-fat-add"></i></b-button> </router-link>
+                                    <router-link :to="{name: 'create-task', query: {emergency: this.model}}"> <b-button> Nueva tarea <i class="ni ni-fat-add"></i></b-button> </router-link>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <b-table striped hover :items="$route.query.emergency.tasks"></b-table>
+                            <b-table striped hover :items="tasks" :fields="fields"></b-table>
                             <h6 v-if="$route.query.emergency.tasks.length === 0" class="heading-small text-muted mb-4">Aún no hay tareas asociadas...</h6>
                         </div>
                     </card>
@@ -117,13 +117,41 @@
     data() {
       return {
           //model: '',
+          fields: [
+              {label: 'NOMBRE', key: 'name'},
+              {label: 'PRIORIDAD', key: 'priority'},
+              {label: '#VOLUNTARIOS ASIGNADOS', key: 'volunteers'},
+              {label: 'ESTADO', key: 'status'}],
+          tasks: []
       }
     },
       created(){
         this.model = this.$route.query.emergency;
-        //this.taskss = this.model.tasks;
-        //console.log(rest_ip+'/'+this.model.id+'/'+'tasks');
-        //this.axios.get(rest_ip+'/'+this.model.id+'/'+'tasks').then((r) => this.tasks = r.data);
+        this.model.status = this.model.status==true ? "Inactiva" : 'En curso';
+        this.retrieveTasks();
+      },
+      methods:{
+        retrieveTasks(){
+          this.axios.get(rest_ip+'emergencies/'+this.$route.query.emergency.id+'/tasks')
+              .then((r) => this.assignTasks(r.data))
+              .catch((e) => alert(e))
+        },
+        assignTasks(r){
+            let i = 0;
+            while (i < r.length){
+                let task = r[i];
+                let status = task.status==true ? 'Terminada' : 'En curso';
+                let volunteers = task.volunteers.length;
+                this.tasks.push({
+                    id: task.id,
+                    name: task.title,
+                    priority: task.priority,
+                    status: status,
+                    volunteers: volunteers
+                });
+                i+=1;
+            }
+        }
       }
   };
 </script>
