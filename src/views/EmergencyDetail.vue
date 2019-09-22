@@ -84,7 +84,7 @@
                                     </div>
 
                                 </div>
-                                <hr class="my-4" />
+<!--                                <hr class="my-4" />-->
                             </form>
                         </template>
                     </card>
@@ -127,7 +127,7 @@
     },
       created(){
         this.model = this.$route.query.emergency;
-        this.model.status = this.model.status==true ? "Inactiva" : 'En curso';
+        this.model.status = this.model.status==true ? "En curso" : 'Inactiva';
         this.retrieveTasks();
       },
       methods:{
@@ -140,7 +140,7 @@
             let i = 0;
             while (i < r.length){
                 let task = r[i];
-                let status = task.status==true ? 'Terminada' : 'En curso';
+                let status = task.status==true ? 'En curso' : 'Terminada';
                 let volunteers = task.volunteers.length;
                 this.tasks.push({
                     id: task.id,
