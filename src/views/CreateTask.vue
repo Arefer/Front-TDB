@@ -15,7 +15,7 @@
                             <b-form-select
                             id="priorityInput"
                             v-model="priority"
-                            :options="{'1':'Alta','2':'Media','3':'Baja'}"
+                            :options="{'1':'1','2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9','10':'10'}"
                             required
                             ></b-form-select>
                         </base-input>
@@ -28,12 +28,25 @@
                             ></b-form-select>
                         </base-input>
 
+                        <label>Seleccione las caracteristicas de la tarea:</label>
+                        <div class="col-md">
+                            <div v-for="item in characteristics" :key="item.id">
+                            <input type="checkbox" :id="item.id" :value="item" v-model="selected">
+                            <label :for="item.name">{{ item.name }}</label>
+                            </div>
+                        </div>
+                        <!--<span>Checked characteristics: {{ selected }}</span>
+                        -->
+                        
+                        
+
 
                         <div class="col-md">
                             <b-alert v-model="showDismissibleAlert" variant="success" dismissible>
                                 Tarea registrada con éxito.
                             </b-alert>
                         </div>
+                        
 
                         <div class="col-md">
                             <b-button @click="post()" class="float-md-right" style="margin-bottom: 10px">Guardar</b-button>
@@ -48,6 +61,21 @@
 <script>
 import {rest_ip} from "../router.js";
 export default {
+    data() {
+            return {
+                name: '',
+                description: '',
+                priority: '',
+                status: '',
+                emergency: '',
+                showDismissibleAlert: false,
+                characteristics: [],
+                selected: [], // Must be an array reference!
+                
+ 
+            }
+    },
+    
     methods: {
           post(){
               if(this.name.length >= 1){
@@ -57,14 +85,22 @@ export default {
                       description: this.description,
                       priority: this.priority,
                       status: this.status,
+                      characteristics: this.selected
                   }).then((r) => {
                       this.showDismissibleAlert = true; this.name=r.data.title;
                       this.$router.push({name:'emergency-details', query: {emergency: this.$route.query.emergency}});
                   }
                   ).catch()
               }
+          },
+          getData(){
+              this.axios.get(rest_ip+'characteristics').then(r => this.characteristics = r.data)
           }
+          
         },
+    mounted(){
+        this.getData()
+    },
     computed: {
             state() {
                 return this.name.length >= 1
@@ -77,16 +113,7 @@ export default {
                 }
             },
         },
-        data() {
-            return {
-                name: '',
-                description: '',
-                priority: '',
-                status: '',
-                emergency: '',
-                showDismissibleAlert: false
-            }
-        }
+        
     
 }
 </script>
