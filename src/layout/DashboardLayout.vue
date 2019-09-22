@@ -1,4 +1,4 @@
-<template>
+em<template>
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
     <side-bar
       :background-color="sidebarBackground"
@@ -6,6 +6,7 @@
       title="E-TRACKER"
     >
       <template slot="links">
+        <!--
         <sidebar-item
           :link="{
             name: 'Dashboard',
@@ -13,16 +14,17 @@
             path: '/dashboard'
           }" 
         /> 
-
+        -->
         <sidebar-item :link="{name: 'E-Dashboard', icon: 'ni ni-tv-2 text-primary', path: '/e-dashboard'}"/>
         <!-- <sidebar-item :link="{name: 'Icons', icon: 'ni ni-planet text-blue', path: '/icons'}"/> -->
-        <sidebar-item :link="{name: 'Maps', icon: 'ni ni-pin-3 text-orange', path: '/maps'}"/>
-        <sidebar-item :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
+        <!-- <sidebar-item :link="{name: 'Maps', icon: 'ni ni-pin-3 text-orange', path: '/maps'}"/> -->
+        <!--<sidebar-item :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/> -->
         <!-- <sidebar-item :link="{name: 'Emergencies', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>-->
-        <sidebar-item :link="{name: 'Login', icon: 'ni ni-key-25 text-info', path: '/login'}"/>
-        <sidebar-item :link="{name: 'Register', icon: 'ni ni-circle-08 text-pink', path: '/register'}"/>
+        <sidebar-item :link="{name: 'Login', icon: 'ni ni-key-25 text-info', path: '/login'}"/> 
+        <!--<sidebar-item :link="{name: 'Register', icon: 'ni ni-circle-08 text-pink', path: '/register'}"/> -->
+        
 <!--        <sidebar-item :link="{name: 'Create emergency', icon: 'ni ni-fat-add text-green', path: '/create-emergency'}" />-->
-        <sidebar-item :link="{name: 'Emergency details', icon: 'ni ni-circle-08 text-pink', path: '/emergency-details'}"/>
+        <!-- <sidebar-item :link="{name: 'Emergency details', icon: 'ni ni-circle-08 text-pink', path: '/emergency-details'}"/> -->
 
       </template>
     </side-bar>
