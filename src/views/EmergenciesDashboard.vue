@@ -1,7 +1,7 @@
 <template>
     <div>
         <base-header class="header pb-8 pt-5 pt-lg-8 d-flex align-items-end"
-                     style="min-height: 50px; background-image: url(img/theme/emergency-scene.jpg); background-size: cover; background-position: top;">
+                     style="min-height: 50px; background-image: url(img/theme/banner.jpg); background-size: cover; background-position: top;">
             <!-- Mask -->
 <!--            <span class="mask bg-gradient-success opacity-8"></span>-->
             <!-- Header container -->
@@ -22,9 +22,9 @@
                             icon="ni ni-active-40"
                             class="mb-4 mb-xl-0"
                 >
-
-                    <template slot="footer">
-                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> </span>
+                
+                    <template slot="footer">                
+                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> </span>                        
                         <span class="text-nowrap">{{emergency.postedAt}}</span>
                     </template>
                 </stats-card>
