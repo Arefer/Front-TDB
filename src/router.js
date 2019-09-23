@@ -70,7 +70,11 @@ export default new Router({
           name: 'task-details',
           component: () => import('./views/TaskDetail.vue')
         },
-      
+        {
+          path: '/volunteers-dashboard',
+          name: 'volunteers-dashboard',
+          component: () => import(/* webpackChunkName: "demo" */ './views/VolunteerDashboard.vue')
+        },
       ]
 
     },
