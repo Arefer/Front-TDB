@@ -89,6 +89,16 @@
                             :sort-direction="sortDirection"
                             @filtered="onFiltered"
                             > 
+                            <template slot="actions" slot-scope="row">
+       <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" variant="primary">
+            <font-awesome-icon icon="pen"></font-awesome-icon>
+
+        </b-button>
+        <b-button size="sm" @click="showMsgBoxOne(row.item)" class="mr-1" variant="danger">
+        </b-button>
+         
+      </template>
+                            
                        </b-table>
             <b-row>
       <b-col md="6" class="my-1">
@@ -144,6 +154,7 @@
            created(){
                this.retrieveTask();
                this.retrieveVolunteers();
+              
                 
       },
       methods:{
