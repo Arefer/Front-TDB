@@ -212,7 +212,7 @@
         this.currentPage = 1
       },
       assing(item){
-          this.axios.put(rest_ip+"tasks/assingVolunteer"+this.$route.query.id+'?idVolunteer='+item.id)
+          this.axios.put(rest_ip+"tasks/assignVolunteer/"+this.$route.query.id+'?idVolunteer='+item.id)
 
       }
       }
