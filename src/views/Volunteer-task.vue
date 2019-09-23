@@ -5,6 +5,8 @@
             <!-- Mask -->
             <span class="mask  opacity-8"></span>
             <!-- Header container -->
+            <router-link :to="{name: 'task-details', query: {id:this.$route.query.id,emergencyId:this.$route.query.emergencyId}}"><b-button><i class="ni ni-bold-left"></i> Volver </b-button></router-link>
+        
             <div class="container-fluid d-flex">
                 <div class="row">
                     <div class="col-md">

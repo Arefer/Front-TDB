@@ -3,8 +3,12 @@
     <base-header class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
                  style="max-height: 400px; background-image: url(img/theme/info.jpg); background-size: cover; background-position: top;">
       <!-- Mask -->
+      
       <span class="mask  opacity-8"></span>
+      
       <!-- Header container -->
+      <router-link :to="{name: 'e-dashboard'}"><b-button><i class="ni ni-bold-left"></i> Volver </b-button></router-link>
+      
       <div class="container-fluid d-flex">
         <div class="row">
           <div class="col-md">
@@ -161,7 +165,7 @@
                 console.log(clickedItem)
             },
             info(item, row){
-                this.$router.push ({ name:'task-details', query:{id:item.id}})
+                this.$router.push ({ name:'task-details', query:{id:item.id, emergencyId:this.$route.query.id }})
 
             },
             showMsgBoxOne() {

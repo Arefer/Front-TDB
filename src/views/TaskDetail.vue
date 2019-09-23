@@ -5,6 +5,8 @@
       <!-- Mask -->
       <span class="mask  opacity-8"></span>
       <!-- Header container -->
+      <router-link :to="{name: 'emergency-details', query: {id:this.$route.query.emergencyId}}"><b-button><i class="ni ni-bold-left"></i> Volver </b-button></router-link>
+        
       <div class="container-fluid d-flex">
         <div class="row">
           <div class="col-md">
@@ -104,7 +106,7 @@
                   <h3 class="mb-0">Voluntarios asociados</h3>
                 </div>
                 <div class="col-4 text-right">
-                  <router-link :to="{name: 'volunteer-task', query: {id: this.$route.query.id}}"> <b-button> Agregar voluntario <i class="ni ni-fat-add"></i></b-button> </router-link>
+                  <router-link :to="{name: 'volunteer-task', query: {id: this.$route.query.id, emergencyId:this.$route.query.emergencyId}}"> <b-button> Agregar voluntario <i class="ni ni-fat-add"></i></b-button> </router-link>
                 </div>
               </div>
             </div>
@@ -246,7 +248,7 @@
                 console.log(clickedItem)
             },
             info(item, row){
-                this.$router.push ({ name:'task-details', query:{id:item.id}})
+                this.$router.push ({ name:'task-details', query:{id:item.id,emergencyId:this.$route.query.id,emergencyId:this.$route.query.id}})
 
             },
             showMsgBoxOne() {
