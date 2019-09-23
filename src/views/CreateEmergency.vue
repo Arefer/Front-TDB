@@ -37,7 +37,7 @@
         methods: {
           post(){
               if(this.name.length >= 1){
-                  alert(this.name)
+                  //alert(this.name)
                   this.axios.post(rest_ip+"emergencies/post", {
                       title: this.name,
                       description: this.description,

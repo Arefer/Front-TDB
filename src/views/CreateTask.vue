@@ -79,7 +79,7 @@ export default {
     methods: {
           post(){
               if(this.name.length >= 1){
-                  alert(this.name);
+                  //alert(this.name);
                   this.axios.post(rest_ip+"tasks/post/"+this.$route.query.emergency.id, {
                       title: this.name,
                       description: this.description,
@@ -88,7 +88,7 @@ export default {
                       characteristics: this.selected
                   }).then((r) => {
                       this.showDismissibleAlert = true; this.name=r.data.title;
-                      this.$router.push({name:'emergency-details', query: {emergency: this.$route.query.emergency}});
+                      this.$router.push({name:'emergency-details', query: {id: this.$route.query.emergency.id}});
                   }
                   ).catch()
               }
