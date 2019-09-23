@@ -59,8 +59,20 @@ export default new Router({
           path: 'create-task',
           name: 'create-task',
           component: () => import('./views/CreateTask.vue')
-        }
+        },
+        {
+          path: 'volunteer-task',
+          name: 'volunteer-task',
+          component: () => import('./views/Volunteer-task.vue')
+        },
+        {
+          path: 'task-details',
+          name: 'task-details',
+          component: () => import('./views/TaskDetail.vue')
+        },
+      
       ]
+
     },
     {
       path: '/',
