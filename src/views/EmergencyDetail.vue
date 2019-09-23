@@ -108,10 +108,10 @@
                             > 
         <template slot="actions" slot-scope="row">
        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" variant="primary">
-            <font-awesome-icon icon="pen"></font-awesome-icon>
-
+         Detalle
         </b-button>
         <b-button size="sm" @click="showMsgBoxOne(row.item)" class="mr-1" variant="danger">
+          Borrar
         </b-button>
          
       </template>

@@ -91,8 +91,8 @@
                             > 
                             <template slot="actions" slot-scope="row">
        <b-button size="sm" @click="assing(row.item, row.index, $event.target)" class="mr-1" variant="primary">
-            <font-awesome-icon icon="pen"></font-awesome-icon>
-
+<!--            <font-awesome-icon icon="pen"></font-awesome-icon>-->
+                Editar
        </b-button>
       </template>
                             
