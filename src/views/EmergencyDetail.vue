@@ -100,7 +100,7 @@
               </div>
             </div>
             <div>
-              <h6 v-if="$route.query.emergency.tasks.length === 0" class="heading-small text-muted mb-4">Aún no hay tareas asociadas...</h6>
+              <h6 v-if="this.model.tasks.length === 0" class="heading-small text-muted mb-4">Aún no hay tareas asociadas...</h6>
               <b-table v-else
                       show-empty
                       striped hover
@@ -132,7 +132,7 @@
         name: 'emergency-details',
         data() {
             return {
-                //model: '',
+                model: '',
                 fields: [
                     {label: 'NOMBRE', key: 'name'},
                     {label: 'PRIORIDAD', key: 'priority'},
@@ -143,11 +143,20 @@
             }
         },
         created(){
-            this.model = this.$route.query.emergency;
-            this.model.status = this.model.status==true ? "En curso" : 'Inactiva';
-            this.retrieveTasks();
+            this.retrieveEmergency();
+
+            //this.retrieveTasks();
         },
         methods:{
+            retrieveEmergency(){
+                this.axios.get(rest_ip+'/emergencies/'+this.$route.query.id)
+                    .then( (r) => {
+                        this.model = r.data;
+                        this.model.status = this.model.status==true ? "En curso" : 'Inactiva';
+                        this.assignTasks(r.data.tasks);
+                    });
+            },
+
             myHandlerMethod: function (clickedItem) {
                 console.log(clickedItem)
             },
@@ -162,7 +171,7 @@
                 this.$router.push ({ path: '/task-details/'+this.item.id})
             } ,
             retrieveTasks(){
-                this.axios.get(rest_ip+'emergencies/'+this.$route.query.emergency.id+'/tasks')
+                this.axios.get(rest_ip+'emergencies/'+this.$route.query.id+'/tasks')
                     .then((r) => this.assignTasks(r.data))
                     .catch((e) => alert(e))
             },

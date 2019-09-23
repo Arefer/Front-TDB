@@ -13,9 +13,8 @@
         </base-header>
         <div  class="container-fluid mt--7">
             <div v-for="emergency in this.emergencies" v-bind:key="emergency.id" class="col-md" style="padding-bottom: 10px">
-                <stats-card @click="alert(emergency.id)"
-                            :title=emergency.title
-                            :query-params="{emergency: emergency}"
+                <stats-card :title=emergency.title
+                            :query-params="{id: emergency.id}"
                             component="emergency-details"
                             type="gradient-red"
                             :sub-title=emergency.location
