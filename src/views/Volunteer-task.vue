@@ -90,13 +90,10 @@
                             @filtered="onFiltered"
                             > 
                             <template slot="actions" slot-scope="row">
-       <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" variant="primary">
+       <b-button size="sm" @click="assing(row.item, row.index, $event.target)" class="mr-1" variant="primary">
             <font-awesome-icon icon="pen"></font-awesome-icon>
 
-        </b-button>
-        <b-button size="sm" @click="showMsgBoxOne(row.item)" class="mr-1" variant="danger">
-        </b-button>
-         
+       </b-button>
       </template>
                             
                        </b-table>
@@ -134,7 +131,7 @@
               {label: 'Telefono', key: 'phone', sortable: true},
                 { key: 'email', label: 'e-mail', sortable: true },
                 {label:'direccion', key:'address'},
-                {label:'Acciones',key:'action'}],
+                {label:'Acciones',key:'actions'}],
           
         model:[],
         volunteersTable:[],
@@ -214,6 +211,10 @@
         this.totalRows = filteredItems.length
         this.currentPage = 1
       },
+      assing(item){
+          this.axios.put(rest_ip+"tasks/assingVolunteer"+this.$route.query.id+'?idVolunteer='+item.id)
+
+      }
       }
   };
 </script>
