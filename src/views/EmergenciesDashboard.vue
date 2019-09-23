@@ -23,7 +23,7 @@
                 >
                 
                     <template slot="footer">                
-                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> </span>                        
+                        <span class="text-green mr-2"><i class="ni ni-calendar-grid-58"></i> </span>                        
                         <span class="text-nowrap">{{emergency.postedAt}}</span>
                     </template>
                 </stats-card>

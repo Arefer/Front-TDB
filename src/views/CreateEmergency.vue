@@ -43,7 +43,15 @@
                       description: this.description,
                       location: this.location,
                       type: this.type
-                  }).then((r) => {this.showDismissibleAlert = true; this.name=r.data.title}).catch(e => alert(e))
+                  }).then((r) => {
+                      //this.showDismissibleAlert = true; this.name=r.data.title;
+                      this.$notify({
+                        type: 'success',
+                         title: 'Emergencia registrada correctamente'
+                        });
+                        this.$router.push("e-dashboard");
+                      })
+                      .catch(e => alert(e))
               }
           }
         },

@@ -88,6 +88,10 @@ export default {
                       characteristics: this.selected
                   }).then((r) => {
                       this.showDismissibleAlert = true; this.name=r.data.title;
+                      this.$notify({
+                        type: 'success',
+                        title: 'Tarea agregada con exito'
+                        });
                       this.$router.push({name:'emergency-details', query: {id: this.$route.query.emergency.id}});
                   }
                   ).catch()

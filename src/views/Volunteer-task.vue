@@ -94,7 +94,7 @@
                             <template slot="actions" slot-scope="row">
        <b-button size="sm" @click="assing(row.item, row.index, $event.target)" class="mr-1" variant="primary">
 <!--            <font-awesome-icon icon="pen"></font-awesome-icon>-->
-                Editar
+                Agregar
        </b-button>
       </template>
                             
@@ -215,7 +215,10 @@
       },
       assing(item){
           this.axios.put(rest_ip+"tasks/assignVolunteer/"+this.$route.query.id+'?idVolunteer='+item.id)
-
+          this.$notify({
+          type: 'success',
+          title: 'Voluntario asignado correctamente'
+        })
       }
       }
   };
