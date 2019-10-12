@@ -4,7 +4,7 @@
         <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <div class="row">
-                <div class="col-xl-3 col-lg-6">
+                <div class="col">
                     <stats-card title="Total traffic"
                                 type="gradient-red"
                                 sub-title="350,897"
@@ -18,14 +18,30 @@
                     </stats-card>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check" v-for="layer in layers" :key="layer.id">
+                        <label class="form-check-label">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="layer.active"
+                                @change="layerChanged(layer.id, layer.active)"
+                            />
+                            {{ layer.name }}
+                                
+                        </label>
+                    </div>
+                </div>
+            </div>
         </base-header>
-
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col">
                     <div class="card shadow border-0">
                         <div id="map" class="map" style="height: 600px;"></div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -34,16 +50,31 @@
 <script>
 
   export default {
-    data: {/* Data properties will go here */
-        map: null,
-        tileLayer: null,
-        layers: [],
-        regiones: [],
-        emergencias: [],
+    data(){/* Data properties will go here */
+        return{
+            map: null,
+            tileLayer: null,
+            layers: [
+                {
+                id: 0,
+                name: 'Emergencies',
+                active: false,
+                features: [],
+                },
+                {
+                id: 2,
+                name: 'Volunteers',
+                active: false,
+                features: [],
+                }
+            ],
+            regiones: [],
+            emergencias: [],
+        }
     },
     methods: { /* Any app-specific functions go here */ 
         initMap() {
-            this.map = L.map('map').setView([-51.760928, -72.482996], 12);
+            this.map = L.map('map').setView([-33.448634, -70.669677], 12);
             this.tileLayer = L.tileLayer(
             'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',
             {
@@ -52,6 +83,9 @@
             }
             );
             this.tileLayer.addTo(this.map);
+            L.marker([-33.450436, -70.6279]).addTo(this.map);
+            L.marker([-33.43677, -70.70647]).addTo(this.map);
+            
         },
         initLayers() {},
     },
