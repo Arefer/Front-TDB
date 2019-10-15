@@ -3,7 +3,7 @@
 
         <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
-            <div class="row">
+            <!--<div class="row">
                 <div class="col">
                     <stats-card title="Total traffic"
                                 type="gradient-red"
@@ -17,7 +17,10 @@
                         </template>
                     </stats-card>
                 </div>
-            </div>
+            </div>-->
+            <div class="col-md">
+                        <h1 class="display-2 text-white">Ubicaciones</h1>
+                    </div>
             <div class="row">
                 <div class="col">
                     <div class="form-check" v-for="layer in layers" :key="layer.id">
@@ -32,9 +35,23 @@
                                 
                         </label>
                     </div>
+                    <div class="btn-group">
+                        <button class="btn btn-warning btn-sm dropdown-toggle"
+                                type="button" data-toggle="dropdown">
+                            Seleccionar región <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Región #1</a></li>
+                            <li><a href="#">Región #2</a></li>
+                            
+                        </ul>
+                        </div>
+                    
                 </div>
             </div>
         </base-header>
+        
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col">
@@ -57,13 +74,13 @@
             layers: [
                 {
                 id: 0,
-                name: 'Emergencies',
+                name: 'Emergencias',
                 active: false,
                 features: [],
                 },
                 {
                 id: 2,
-                name: 'Volunteers',
+                name: 'Voluntarios',
                 active: false,
                 features: [],
                 }

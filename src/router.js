@@ -22,7 +22,7 @@ export default new Router({
         },
         {
           path: '/e-dashboard',
-          name: 'e-dashboard',
+          name: 'Tablero Emergencias',
           component: () => import('./views/EmergenciesDashboard.vue')
         },
         {
@@ -37,7 +37,7 @@ export default new Router({
         },
         {
           path: '/maps',
-          name: 'maps',
+          name: 'Coordenadas ubicaciones',
           component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
         },
         {
@@ -72,7 +72,7 @@ export default new Router({
         },
         {
           path: '/volunteers-dashboard',
-          name: 'volunteers-dashboard',
+          name: 'Tablero Voluntarios',
           component: () => import(/* webpackChunkName: "demo" */ './views/VolunteerDashboard.vue')
         },
       ]
