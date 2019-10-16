@@ -65,8 +65,10 @@
     </div>
 </template>
 <script>
-
-  export default {
+    import {rest_ip} from "../router";
+    import L from 'leaflet';
+    export default {
+      
     data(){/* Data properties will go here */
         return{
             map: null,
@@ -79,8 +81,8 @@
                 features: [],
                 },
                 {
-                id: 2,
-                name: 'Voluntarios',
+                id: 1,
+                name: 'Volunteers',
                 active: false,
                 features: [],
                 }
@@ -100,14 +102,73 @@
             }
             );
             this.tileLayer.addTo(this.map);
+
+
             L.marker([-33.450436, -70.6279]).addTo(this.map);
             L.marker([-33.43677, -70.70647]).addTo(this.map);
+
             
         },
-        initLayers() {},
+        initLayers() {
+            
+            // const polygonFeatures = this.layers[0].features;
+            // const markerFeatures = this.layers[1].features;
+            
+
+            // polygonFeatures.forEach((feature) => {
+            //         feature.leafletObject = L.polygon(feature.coords).bindPopup(feature.name);
+            // });
+            
+            this.layers[1].features.forEach((feature) => {
+                // feature.leafletObject = new Array();
+                feature.leafletObject = L.marker([feature.latitude, feature.longitude]).bindPopup(feature.name);
+            });
+
+            // this.layers.forEach((layer) => {
+
+            //     const markerFeatures = layer.features.filter(feature => feature.type === 'marker'); //Filtrar por tipo marcadores
+            //     const polygonFeatures = layer.features.filter(feature => feature.type === 'polygon'); //Filtrar por tipo poligonos
+            //     //Para voluntarios
+            //     markerFeatures.forEach((feature) => {
+            //         feature.leafletObject = L.marker([feature.latitude, feature.longitude]).bindPopup(feature.name);
+            //         L.marker([feature.latitude, feature.longitude]).addTo(this.map);
+            //     });
+            //     //Para regiones
+            //     polygonFeatures.forEach((feature) => {
+            //         feature.leafletObject = L.polygon(feature.coords).bindPopup(feature.name);
+            //     });
+
+            // });
+        },
+
+        layerChanged(layerId, active) {
+            const layer = this.layers.find(layer => layer.id === layerId);
+            /* Show or hide the features in the layer */
+            layer.features.forEach((feature) => {
+            /* Show or hide the feature depending on the active argument */
+            if (active) {
+                // L.marker([-33.450436, -70.6279]).addTo(this.map);
+                feature.leafletObject.addTo(this.map);
+            }else {
+                // L.marker([-33.450436, -70.6279]).removeFrom(this.map);
+                feature.leafletObject.removeFrom(this.map);
+                }   
+            });
+        },
+
+
+        getEmergencies(){
+            this.axios.get(rest_ip+'emergencies').then(r => this.layers[0].features = r.data)
+        },
+
+        getVolunteers(){
+            this.axios.get(rest_ip+'volunteers').then(r => this.layers[1].features = r.data)
+        },
     },
     
     mounted() { /* Code to run when app is mounted */ 
+        this.getEmergencies();
+        this.getVolunteers();
         this.initMap();
         this.initLayers();
     },
