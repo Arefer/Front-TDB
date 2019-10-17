@@ -107,7 +107,9 @@
         ></b-pagination>
       </b-col>
     </b-row>
-    <b-modal v-model="modalShow">Hello From Modal!</b-modal>
+    <b-modal v-model="modalShow" title = "Ubicacion">
+      <div id="map" class="map" style="height: 500px;"></div>
+    </b-modal>
 
                         </div>
                     </card>
@@ -120,7 +122,7 @@
 
 <script>
     import {rest_ip} from "../router";
-    // import modal from './Modal'
+    import L from 'leaflet';
     export default {
     name: "VolunteersDashboard",
 
@@ -132,10 +134,9 @@
               {label: 'rut', key: 'rut', sortable: true},
               {label: 'sexo', key:'sex', sortable: true},
               {label: 'Telefono', key: 'phone', sortable: true},
-                { key: 'email', label: 'e-mail', sortable: true },
-                {label:'direccion', key:'address'},
-                {label:'Acciones',key:'actions'}],
-          
+              { key: 'email', label: 'e-mail', sortable: true },
+              {label:'direccion', key:'address'},              
+              {label:'Acciones',key:'actions'}],
         volunteersTable:[],
         lengthVolunteer:'',
         totalRows: 1,
@@ -152,33 +153,50 @@
     },
     methods: {
 
-          openModal(item) { //Modal para mapa
-            this.modalShow = true;
-          },
-         retrieveVolunteers(){
-              this.axios.get(rest_ip+'volunteers')
-              .then((volunteer) => this.volunteersTask(volunteer.data))
-              .catch((e) => alert(e))
-          },
-          volunteersTask(volunteer){
-            let i = 0;
-            while (i < volunteer.length){
-                let  lengthVolunteer = volunteer.length;
-              
-                this.volunteersTable.push({
-                    id: volunteer[i].id,
-                    name: volunteer[i].name,
-                    lastName: volunteer[i].lastName,
-                    sex:volunteer[i].sex,
-                    rut:volunteer[i].rut,
-                    phone:volunteer[i].phone,
-                    email:volunteer[i].email,
-                    address:volunteer[i].address
-                });
 
-                i+=1;
-            }
-        },
+      openModal(item) { //Modal para mapa
+        console.log(item);
+          this.modalShow = true;
+
+          this.map = L.map('map').setView([item.latitude, item.longitude], 12);
+          // this.map = L.map('map').setView([item.latitude, item.longitude], 12);
+          this.tileLayer = L.tileLayer(
+          'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',
+          {
+              maxZoom: 18,
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
+          }
+          );
+          L.marker([item.latitude, item.longitude]).addTo(this.map);
+          this.tileLayer.addTo(this.map);
+          this.map.invalidateSize();
+      },
+      retrieveVolunteers(){
+          this.axios.get(rest_ip+'volunteers')
+          .then((volunteer) => this.volunteersTask(volunteer.data))
+          .catch((e) => alert(e))
+      },
+      volunteersTask(volunteer){
+        let i = 0;
+        while (i < volunteer.length){
+            let  lengthVolunteer = volunteer.length;
+          
+            this.volunteersTable.push({
+                id: volunteer[i].id,
+                name: volunteer[i].name,
+                lastName: volunteer[i].lastName,
+                sex:volunteer[i].sex,
+                rut:volunteer[i].rut,
+                phone:volunteer[i].phone,
+                email:volunteer[i].email,
+                address:volunteer[i].address,
+                longitude:volunteer[i].longitude,
+                latitude:volunteer[i].latitude
+
+            });
+            i+=1;
+          }
+      },
     },
     onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
