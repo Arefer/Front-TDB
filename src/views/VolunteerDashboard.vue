@@ -32,6 +32,7 @@
                             </div>
                         </div>
                             <b-row>
+    
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Filtro" class="mb-0">
           <b-input-group>
@@ -88,11 +89,12 @@
                             @filtered="onFiltered"
                             > 
                             <template slot="actions" slot-scope="row">
-       <b-button size="sm" @click="assing(row.item, row.index, $event.target)" class="mr-1" variant="primary">
-<!--            <font-awesome-icon icon="pen"></font-awesome-icon>-->
-                Editar
-       </b-button>
-      </template>
+        <b-button size="sm" @click="assing(row.item, row.index, $event.target)" class="mr-1" variant="primary">
+  <!--            <font-awesome-icon icon="pen"></font-awesome-icon>-->
+                  Editar
+        </b-button>
+         <b-button size="sm" @click="openModal(row.item)" class="mr-1" variant="primary"><i class="ni ni-pin-3"></i></b-button>
+        </template>
                             
                        </b-table>
             <b-row>
@@ -105,7 +107,7 @@
         ></b-pagination>
       </b-col>
     </b-row>
-    
+    <b-modal v-model="modalShow">Hello From Modal!</b-modal>
 
                         </div>
                     </card>
@@ -113,10 +115,12 @@
             </div>
         </div>
     </div>
+    
 </template>
 
 <script>
     import {rest_ip} from "../router";
+    // import modal from './Modal'
     export default {
     name: "VolunteersDashboard",
 
@@ -143,15 +147,14 @@
         sortDirection: 'asc',
         filter: null,
         currentItemIndex: 0,
-        
+        modalShow: false,
       }
     },
-         created(){
-               this.retrieveVolunteers();
-              
-                
-      },
     methods: {
+
+          openModal(item) { //Modal para mapa
+            this.modalShow = true;
+          },
          retrieveVolunteers(){
               this.axios.get(rest_ip+'volunteers')
               .then((volunteer) => this.volunteersTask(volunteer.data))
@@ -182,9 +185,9 @@
         this.totalRows = filteredItems.length
         this.currentPage = 1
       },
-    mounted(){
-        this.retrieveData()
-    }
+    created(){
+      this.retrieveVolunteers();          
+    },
 }
 </script>
 

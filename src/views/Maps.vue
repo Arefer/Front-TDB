@@ -23,17 +23,18 @@
                     </div>
             <div class="row">
                 <div class="col">
-                    <div class="form-check" v-for="layer in layers" :key="layer.id">
-                        <label class="form-check-label">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                v-model="layer.active"
-                                @change="layerChanged(layer.id, layer.active)"
-                            />
-                            {{ layer.name }}
-                                
-                        </label>
+                    <div class="form-check">
+                        <div class="form-check" v-for="layer in layers" :key="layer.id">
+                            <label class="form-check-label">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="layer.active"
+                                    @change="layerChanged(layer.id, layer.active)"
+                                />
+                                {{ layer.name }}
+                            </label>
+                        </div>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-warning btn-sm dropdown-toggle"
@@ -48,7 +49,7 @@
                         </ul>
                         </div>
                     
-                </div>
+                </div>                
             </div>
         </base-header>
         
@@ -87,10 +88,9 @@
                 features: [],
                 }
             ],
-            regiones: [],
-            emergencias: [],
         }
     },
+    
     methods: { /* Any app-specific functions go here */ 
         initMap() {
             this.map = L.map('map').setView([-33.448634, -70.669677], 12);
@@ -102,43 +102,25 @@
             }
             );
             this.tileLayer.addTo(this.map);
-
-
-            L.marker([-33.450436, -70.6279]).addTo(this.map);
-            L.marker([-33.43677, -70.70647]).addTo(this.map);
-
-            
         },
-        initLayers() {
-            
-            // const polygonFeatures = this.layers[0].features;
-            // const markerFeatures = this.layers[1].features;
-            
 
-            // polygonFeatures.forEach((feature) => {
-            //         feature.leafletObject = L.polygon(feature.coords).bindPopup(feature.name);
-            // });
+
+        initVolunteersMark(volunteers) {
+
+            volunteers.forEach((volunteer) => {
+                volunteer.leafletObject = L.marker([volunteer.latitude, volunteer.longitude]).bindPopup(volunteer.name);
+            });
             
-            this.layers[1].features.forEach((feature) => {
-                // feature.leafletObject = new Array();
-                feature.leafletObject = L.marker([feature.latitude, feature.longitude]).bindPopup(feature.name);
+            this.layers[1].features = volunteers;
+        },
+
+        initEmergenciesMark(emergencies){
+            
+            emergencies.forEach(emergency =>{
+                emergency.leafletObject = L.marker([emergency.latitude, emergency.longitude]).bindPopup(emergency.title);
             });
 
-            // this.layers.forEach((layer) => {
-
-            //     const markerFeatures = layer.features.filter(feature => feature.type === 'marker'); //Filtrar por tipo marcadores
-            //     const polygonFeatures = layer.features.filter(feature => feature.type === 'polygon'); //Filtrar por tipo poligonos
-            //     //Para voluntarios
-            //     markerFeatures.forEach((feature) => {
-            //         feature.leafletObject = L.marker([feature.latitude, feature.longitude]).bindPopup(feature.name);
-            //         L.marker([feature.latitude, feature.longitude]).addTo(this.map);
-            //     });
-            //     //Para regiones
-            //     polygonFeatures.forEach((feature) => {
-            //         feature.leafletObject = L.polygon(feature.coords).bindPopup(feature.name);
-            //     });
-
-            // });
+            this.layers[0].features = emergencies;
         },
 
         layerChanged(layerId, active) {
@@ -158,19 +140,24 @@
 
 
         getEmergencies(){
-            this.axios.get(rest_ip+'emergencies').then(r => this.layers[0].features = r.data)
+            this.axios.get(rest_ip+'emergencies').then(r => {
+                const emergencies = r.data;
+                this.initEmergenciesMark(emergencies)
+                });
         },
 
         getVolunteers(){
-            this.axios.get(rest_ip+'volunteers').then(r => this.layers[1].features = r.data)
+            this.axios.get(rest_ip+'volunteers').then(r => {
+                const volunteers = r.data;
+                this.initVolunteersMark(volunteers);
+                });
         },
     },
-    
+
     mounted() { /* Code to run when app is mounted */ 
-        this.getEmergencies();
         this.getVolunteers();
+        this.getEmergencies();
         this.initMap();
-        this.initLayers();
     },
     
   }
