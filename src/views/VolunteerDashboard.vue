@@ -112,8 +112,8 @@
                 </div>
             </div>
         </div>
-        <b-modal v-model="modalShow" @shown="modalShown" title = "Ubicacion">
-        <div id="map" class="map" style="height: 500px;"></div>
+        <b-modal v-model="modalShow" ok-only @shown="modalShown" @hidden="modalHidden" title = "Ubicacion">
+        <div id="map" class="map" style="height: 450px;"></div>
         </b-modal>
     </div>
     
@@ -152,23 +152,20 @@
       }
     },
     methods: {
+      modalHidden(){
+        this.map.remove();
+      },
       modalShown() {
+        //Fix map display
         setTimeout(() => {
           this.map.invalidateSize(); 
         }, 100);
       },
-
       openModal(item) { //Modal para mapa;
-        console.log(item);
-          this.modalShow = true;
+          this.modalShow = true;//Display modal
+
+          //Init map
           this.map = L.map('map').setView([item.latitude, item.longitude], 12);
-          // this.map = L.map('map').setView([item.latitude, item.longitude], 12);
-          
-          L.marker([item.latitude, item.longitude]).addTo(this.map);
-          ;
-      },
-      initMap() {
-          this.map = L.map('map').setView([-33.448634, -70.669677], 12);
           this.tileLayer = L.tileLayer(
           'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',
           {
@@ -176,7 +173,10 @@
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
           }
           );
-          this.tileLayer.addTo(this.map);
+          this.tileLayer.addTo(this.map);         
+
+          //Volunteer mark
+          L.marker([item.latitude, item.longitude]).addTo(this.map).bindPopup(item.name);
       },
       retrieveVolunteers(){
           this.axios.get(rest_ip+'volunteers')
@@ -212,9 +212,6 @@
       },
     created(){
       this.retrieveVolunteers();                
-    },
-    mounted(){
-      this.initMap();
     },
 }
 </script>
