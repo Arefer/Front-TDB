@@ -42,12 +42,11 @@
                   //alert(this.name)
                   this.axios.post(rest_ip+"emergencies/post", {
                       title: this.name,
-                      altitude: "0",
                       description: this.description,
                       location: this.location,
                       type: this.type,
-                      longitude: 21,
-                      latitude: 21
+                      longitude: this.longitude,
+                      latitude: this.latitude
                   }).then((r) => {
                       //this.showDismissibleAlert = true; this.name=r.data.title;
                       this.$notify({
