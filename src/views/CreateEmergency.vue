@@ -76,6 +76,8 @@
                 name: '',
                 description: '',
                 location: '',
+                latitude: '',
+                longitude: '',
                 type: '',
                 showDismissibleAlert: false
             }
