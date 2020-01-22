@@ -12,6 +12,8 @@
                         <base-input id="nameInput" v-model="name" :valid="state" :error="invalidFeedback" class="col-md" label="Nombre" required  ></base-input>
                         <base-input class="col-md" v-model="description" label="Descripción"  ></base-input>
                         <base-input class="col-md" v-model="location" label="Ubicación"  ></base-input>
+                        <base-input class="col-md" v-model="longitude" label="Longitude"  ></base-input>
+                        <base-input class="col-md" v-model="latitude" label="Latitude"  ></base-input>
                         <base-input class="col-md" v-model="type" label="Tipo" ></base-input>
 
 
@@ -40,9 +42,12 @@
                   //alert(this.name)
                   this.axios.post(rest_ip+"emergencies/post", {
                       title: this.name,
+                      altitude: "0",
                       description: this.description,
                       location: this.location,
-                      type: this.type
+                      type: this.type,
+                      longitude: 21,
+                      latitude: 21
                   }).then((r) => {
                       //this.showDismissibleAlert = true; this.name=r.data.title;
                       this.$notify({

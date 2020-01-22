@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import DashboardLayout from '@/layout/DashboardLayout'
 import AuthLayout from '@/layout/AuthLayout'
 Vue.use(Router)
-export const rest_ip = "http://localhost:9090/";
+export const rest_ip = "http://localhost:4567/";
 export default new Router({
   linkExactActiveClass: 'active',
   routes: [
